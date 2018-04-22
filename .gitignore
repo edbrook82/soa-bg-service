@@ -1,0 +1,4 @@
+.*.swp
+.vscode
+config.js
+node_modules/
