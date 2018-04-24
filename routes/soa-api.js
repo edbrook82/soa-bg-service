@@ -16,7 +16,7 @@ const gasUnitsToKwH = units => (
 
 router.post('/reading/gas', (req, res) => {
   const { units } = req.body;
-  const kwh = gasUnitsToKwH(units);
+  const kwh = Math.round(gasUnitsToKwH(units) * 100) / 100;
   const cost = Math.round(GAS_PRICE_PER_KWH * kwh) / 100;
   res.json({ cost, kwh });
 });
