@@ -15,14 +15,20 @@ const gasUnitsToKwH = units => (
     / GAS_CAL_TO_KHW);
 
 router.post('/reading/gas', (req, res) => {
-  const { units } = req.body;
+  var { units } = req.body;
+  if (isNaN(units)) { units = 0; }
   const kwh = Math.round(gasUnitsToKwH(units) * 100) / 100;
   const cost = Math.round(GAS_PRICE_PER_KWH * kwh) / 100;
   res.json({ cost, kwh });
 });
 
 router.post('/reading/electricity', (req, res) => {
-  const { units } = req.body;
+  var { units } = req.body;
+  try {
+  if (isNaN(units)) { units = 0; }
+  } catch (err) {
+    console.log(err);
+  }
   const cost = Math.round(units * ELEC_PRICE_PER_KWH) / 100;
   res.json({ cost, kwh: units });
 });
